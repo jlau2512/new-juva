@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #080807;
+    --ink: #EDEDEA;
+    --accent: #C8FF3D;
+  }
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  ::selection { background: rgba(200, 255, 61, 0.2); color: #EDEDEA; }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #666; }
+}
+
+@layer components {
+  .scroll-progress {
+    @apply fixed top-0 left-0 right-0 z-[60] h-[2px] origin-left bg-accent;
+  }
+  .container-x { @apply mx-auto max-w-[1200px] px-6 md:px-10; }
+  .h-display {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.0;
+  }
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-pill border border-white/10 bg-white/[0.04] px-4 py-1.5 font-label text-xs uppercase tracking-[0.18em] text-ink-muted;
+  }
+  .section-label {
+    @apply font-label text-xs uppercase tracking-[0.22em] text-accent/80;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-pill bg-accent px-7 py-4 font-label text-[14px] font-semibold tracking-wide text-bg transition-all duration-300 ease-out-expo hover:translate-y-[-2px] hover:shadow-[0_16px_40px_rgba(200,255,61,0.28)];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-pill border border-white/15 px-7 py-4 font-label text-[14px] font-semibold tracking-wide text-ink transition-all duration-300 ease-out-expo hover:border-white/30 hover:bg-white/[0.05];
+  }
+  .text-shimmer {
+    background: linear-gradient(90deg, #EDEDEA 0%, #EDEDEA 40%, var(--accent) 50%, #EDEDEA 60%, #EDEDEA 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    @apply animate-shimmer;
+  }
+}
+
+@layer utilities {
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+  .perspective-1200 { perspective: 1200px; }
+}

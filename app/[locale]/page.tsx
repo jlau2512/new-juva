@@ -1,0 +1,46 @@
+import { type Locale, getDict } from '@/lib/i18n';
+import Hero from '@/components/sections/Hero';
+import Marquee from '@/components/sections/Marquee';
+import Services from '@/components/sections/Services';
+import Process from '@/components/sections/Process';
+import Work from '@/components/sections/Work';
+import Testimonials from '@/components/sections/Testimonials';
+import FAQ from '@/components/sections/FAQ';
+import CTA from '@/components/sections/CTA';
+import type { Metadata } from 'next';
+import { SITE } from '@/lib/config';
+
+export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
+  const isFr = params.locale === 'fr';
+  const title = isFr
+    ? `${SITE.name} — Studio digital premium à Maurice`
+    : `${SITE.name} — Premium Digital Studio in Mauritius`;
+  const desc = isFr
+    ? 'Sites web, apps sur mesure et identité de marque pour des équipes ambitieuses à Maurice et au-delà.'
+    : 'Websites, custom apps, and brand identity for ambitious teams in Mauritius and beyond.';
+  return {
+    title,
+    description: desc,
+    alternates: {
+      canonical: `${SITE.url}/${params.locale}`,
+      languages: { en: `${SITE.url}/en`, fr: `${SITE.url}/fr` },
+    },
+    openGraph: { title, description: desc, locale: params.locale === 'fr' ? 'fr_FR' : 'en_US' },
+  };
+}
+
+export default function Home({ params }: { params: { locale: Locale } }) {
+  const dict = getDict(params.locale);
+  return (
+    <>
+      <Hero locale={params.locale} dict={dict} />
+      <Marquee dict={dict} />
+      <Services dict={dict} />
+      <Process dict={dict} />
+      <Work locale={params.locale} dict={dict} />
+      <Testimonials dict={dict} />
+      <FAQ dict={dict} />
+      <CTA locale={params.locale} dict={dict} />
+    </>
+  );
+}
