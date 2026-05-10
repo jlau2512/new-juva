@@ -61,10 +61,12 @@ const fr = {
     sub: 'Un échantillon de ce que nous avons livré récemment. Tous sont des sites ou apps en production.',
     cta: 'Voir tous les projets',
     items: [
-      { tag: 'Logistique', title: 'Cargolink', desc: 'Tableau de bord opérations pour un transitaire. A remplacé 4 feuilles Excel et un groupe WhatsApp.' },
-      { tag: 'Construction', title: 'Beton & Co', desc: 'Site marketing + portail projet pour une entreprise de construction résidentielle.' },
-      { tag: 'Hôtellerie', title: 'Maison Sucrée', desc: 'Site d’hôtel boutique avec moteur de réservation directe sur mesure.' },
-      { tag: 'Commerce', title: 'Atelier 230', desc: 'Expérience e-commerce pour une marque artisanale mauricienne. +180% de revenus en 1 an.' },
+      { tag: 'Construction', title: 'ENC Construction', desc: 'Site marketing pour une entreprise de construction mauricienne — résidentiel et commercial.', url: 'https://enc-construction-co-ltd-cf383c.webflow.io/' },
+      { tag: 'Conciergerie', title: 'Luxoria', desc: 'Site de conciergerie de luxe avec demandes de réservation sur mesure pour une clientèle haut de gamme.', url: 'https://luxoriaconciergerie.com/' },
+      { tag: 'Formation', title: 'Closing Delite', desc: 'Landing page conversion-focused pour une formation de closing en français.', url: 'https://formation-de-closing-delite.webflow.io/' },
+      { tag: 'Coaching', title: 'TCR Mastery', desc: 'Site de formation et tunnel de vente pour un programme de mastery en ligne.', url: 'https://tcrmastery.webflow.io/' },
+      { tag: 'Logistique', title: 'Island Container Solution', desc: 'Spécialiste de la location et conversion de conteneurs pour Maurice et l’océan Indien.', url: 'https://islandcontainersolution.mu/' },
+      { tag: 'SaaS', title: 'SD Surveyor', desc: 'Application de rapport d’arpenteur — remplace le papier par des formulaires structurés.', url: 'https://www.sdsurveyor.app/' },
     ],
   },
   testimonials: {
