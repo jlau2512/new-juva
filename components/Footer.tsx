@@ -8,7 +8,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
       <div className="container-x py-20">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <div className="font-display text-4xl font-semibold tracking-[0.15em] text-shimmer">JUVA</div>
+            <div className="font-display text-4xl font-medium tracking-[0.2em] text-shimmer">JUVA</div>
             <p className="mt-4 max-w-md text-ink-muted">{dict.footer.tagline}</p>
             <p className="mt-6 text-sm text-ink-subtle">{dict.footer.crafted}</p>
           </div>

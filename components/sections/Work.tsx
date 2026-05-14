@@ -119,7 +119,7 @@ export default function Work({ locale: _locale, dict }: { locale: Locale; dict: 
         <Reveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <span className="section-label">{dict.work.label}</span>
-            <h2 className="mt-4 font-display text-[clamp(36px,5.5vw,68px)] text-ink">
+            <h2 className="mt-4 font-display text-[clamp(34px,5vw,62px)] tracking-[-0.025em] text-ink">
               {dict.work.title}{' '}
               <em className="not-italic italic text-accent">{dict.work.titleStrong}</em>
             </h2>

@@ -86,7 +86,7 @@ export default function Services({ dict }: { dict: Dict }) {
       <div className="container-x relative">
         <Reveal>
           <span className="section-label">{dict.services.label}</span>
-          <h2 className="mt-4 font-display text-[clamp(36px,5.5vw,68px)] text-ink">
+          <h2 className="mt-4 font-display text-[clamp(34px,5vw,62px)] tracking-[-0.025em] text-ink">
             {dict.services.title}{' '}
             <span className="italic text-accent">{dict.services.titleStrong}</span>
           </h2>

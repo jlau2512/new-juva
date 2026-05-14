@@ -30,7 +30,7 @@ export default function ProcessPage({ params }: { params: { locale: Locale } }) 
         <div className="container-x">
           <Reveal>
             <span className="section-label">{p.label}</span>
-            <h1 className="mt-5 max-w-4xl font-display text-[clamp(40px,7vw,84px)] leading-[1.02] tracking-[-0.02em] text-ink">
+            <h1 className="mt-5 max-w-4xl font-display font-medium text-[clamp(38px,6.2vw,76px)] leading-[1.03] tracking-[-0.03em] text-ink">
               {p.title} <span className="italic text-accent">{p.titleStrong}</span>
             </h1>
             <p className="mt-7 max-w-[46rem] text-[17px] leading-relaxed text-ink-muted">{p.lead}</p>
@@ -51,7 +51,7 @@ export default function ProcessPage({ params }: { params: { locale: Locale } }) 
       <section className="relative py-24 md:py-32">
         <div className="container-x relative">
           <Reveal className="mx-auto max-w-[44rem] text-center">
-            <h2 className="font-display text-[clamp(30px,4.5vw,52px)] leading-[1.08] text-ink">
+            <h2 className="font-display text-[clamp(30px,4.5vw,52px)] leading-[1.1] tracking-[-0.02em] text-ink">
               {p.closingTitle}
             </h2>
             <p className="mt-6 text-[16px] leading-relaxed text-ink-muted">{p.closingBody}</p>

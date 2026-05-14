@@ -40,7 +40,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
       <div className="container-x flex h-[68px] items-center justify-between">
         {/* Logo */}
         <Link href={`/${locale}`} className="group flex items-center gap-2">
-          <span className="font-display text-2xl font-semibold tracking-[0.15em] text-shimmer">JUVA</span>
+          <span className="font-display text-2xl font-medium tracking-[0.2em] text-shimmer">JUVA</span>
           <span className="h-1.5 w-1.5 rounded-full bg-accent transition-transform duration-500 group-hover:scale-150" />
         </Link>
 

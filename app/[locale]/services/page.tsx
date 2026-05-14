@@ -31,7 +31,7 @@ export default function ServicesPage({ params }: { params: { locale: Locale } })
         <div className="container-x">
           <Reveal>
             <span className="section-label">{s.label}</span>
-            <h1 className="mt-5 max-w-4xl font-display text-[clamp(40px,7vw,84px)] leading-[1.02] tracking-[-0.02em] text-ink">
+            <h1 className="mt-5 max-w-4xl font-display font-medium text-[clamp(38px,6.2vw,76px)] leading-[1.03] tracking-[-0.03em] text-ink">
               {s.title} <span className="italic text-accent">{s.titleStrong}</span>
             </h1>
             <p className="mt-7 max-w-[46rem] text-[17px] leading-relaxed text-ink-muted">{s.lead}</p>

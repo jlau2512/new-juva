@@ -37,7 +37,7 @@ export default function CTA({ locale, dict }: { locale: string; dict: Dict }) {
         <div className="w-[600px] h-[300px] rounded-full bg-accent/[0.04] blur-[80px]" />
       </div>
       <div className="js-cta-content container-x relative text-center">
-        <h2 className="font-display text-[clamp(48px,8.5vw,110px)] leading-[0.92] tracking-[-0.02em] text-ink">
+        <h2 className="font-display font-medium text-[clamp(46px,7.4vw,96px)] leading-[0.96] tracking-[-0.03em] text-ink">
           {dict.cta.titleA}<br />
           <em className="not-italic italic text-accent">{dict.cta.titleB}</em>
         </h2>

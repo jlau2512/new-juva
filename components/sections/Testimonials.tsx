@@ -34,7 +34,7 @@ export default function Testimonials({ dict }: { dict: Dict }) {
       <div className="container-x relative">
         <Reveal>
           <span className="section-label">{dict.testimonials.label}</span>
-          <h2 className="mt-4 font-display text-[clamp(36px,5.5vw,68px)] text-ink">
+          <h2 className="mt-4 font-display text-[clamp(34px,5vw,62px)] tracking-[-0.025em] text-ink">
             {dict.testimonials.title}{' '}
             <em className="not-italic italic text-accent">{dict.testimonials.titleStrong}</em>
           </h2>

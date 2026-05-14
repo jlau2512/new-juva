@@ -55,7 +55,7 @@ export default function FAQ({ dict }: { dict: Dict }) {
       <div className="container-x">
         <Reveal>
           <span className="section-label">{dict.faq.label}</span>
-          <h2 className="mt-4 font-display text-[clamp(36px,5.5vw,68px)] text-ink">
+          <h2 className="mt-4 font-display text-[clamp(34px,5vw,62px)] tracking-[-0.025em] text-ink">
             {dict.faq.title}{' '}
             <em className="not-italic italic text-accent">{dict.faq.titleStrong}</em>
           </h2>

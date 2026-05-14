@@ -118,7 +118,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative isolate min-h-dvh flex items-center overflow-hidden pt-28 pb-20 lg:py-0">
+    <section ref={sectionRef} className="relative isolate min-h-dvh flex items-center overflow-hidden pt-32 pb-20 lg:pt-36 lg:pb-24">
       {/* Ambient orb */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute top-[18%] left-[6%] w-[520px] h-[520px] rounded-full bg-accent/[0.05] blur-[100px]" />
@@ -150,7 +150,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
       {/* Content — LEFT-ANCHORED, not inside the centered container */}
       <div className="relative z-10 w-full px-6 sm:px-10 lg:pl-16 xl:pl-24 2xl:pl-32">
         <div className="max-w-[36rem] lg:max-w-[44rem]">
-          <h1 className="font-display text-[clamp(48px,7.5vw,132px)] leading-[0.95] tracking-[-0.02em] text-ink">
+          <h1 className="font-display font-medium text-[clamp(46px,6.4vw,100px)] leading-[0.98] tracking-[-0.03em] text-ink">
             {dict.hero.titleLines.map((line, i) => (
               <span key={i} className="js-headline-line block">
                 {line}
