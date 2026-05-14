@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 import { type Locale, type Dict } from '@/lib/i18n';
@@ -50,36 +49,6 @@ function TreeSVG() {
   );
 }
 
-function WordRotator({ words }: { words: readonly string[] }) {
-  const [idx, setIdx] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setIdx((v) => (v + 1) % words.length), 2600);
-    return () => clearInterval(t);
-  }, [words.length]);
-  // Reserve width with the longest word so the line never reflows mid-rotation.
-  const longest = words.reduce((a, b) => (b.length > a.length ? b : a), words[0]);
-  return (
-    <span className="relative inline-block overflow-hidden align-bottom">
-      {/* invisible spacer keeps the headline width/height stable */}
-      <span className="invisible italic" aria-hidden>
-        {longest}
-      </span>
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={idx}
-          initial={{ y: '110%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '-110%' }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 inline-block italic text-accent"
-        >
-          {words[idx]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
-
 function useShould3D() {
   const [enabled, setEnabled] = useState(false);
   useEffect(() => {
@@ -116,7 +85,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
 
       ctx = gsap.context(() => {
         // Hide content while the tree appears
-        gsap.set(['.js-eyebrow', '.js-headline-line', '.js-sub', '.js-cta', '.js-stat', '.js-scroll-hint'], {
+        gsap.set(['.js-headline-line', '.js-sub', '.js-cta', '.js-stat', '.js-scroll-hint'], {
           opacity: 0,
           y: 24,
         });
@@ -134,8 +103,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
         );
 
         // Hero content fades in (works for both 3D and SVG modes)
-        tl.to('.js-eyebrow', { opacity: 1, y: 0, duration: 0.6 }, 1.6);
-        tl.to('.js-headline-line', { opacity: 1, y: 0, duration: 0.85, stagger: 0.1 }, 1.7);
+        tl.to('.js-headline-line', { opacity: 1, y: 0, duration: 0.85, stagger: 0.12 }, 1.6);
         tl.to('.js-sub', { opacity: 1, y: 0, duration: 0.7 }, 2.0);
         tl.to('.js-cta', { opacity: 1, y: 0, duration: 0.7 }, 2.2);
         tl.to('.js-stat', { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, 2.4);
@@ -182,22 +150,21 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
       {/* Content — LEFT-ANCHORED, not inside the centered container */}
       <div className="relative z-10 w-full px-6 sm:px-10 lg:pl-16 xl:pl-24 2xl:pl-32">
         <div className="max-w-[36rem] lg:max-w-[44rem]">
-          <div className="js-eyebrow">
-            <span className="section-label">{dict.hero.eyebrow}</span>
-          </div>
-
-          <h1 className="mt-5 font-display text-[clamp(48px,7.5vw,132px)] leading-[0.95] tracking-[-0.02em] text-ink">
+          <h1 className="font-display text-[clamp(48px,7.5vw,132px)] leading-[0.95] tracking-[-0.02em] text-ink">
             {dict.hero.titleLines.map((line, i) => (
               <span key={i} className="js-headline-line block">
                 {line}
               </span>
             ))}
-            <span className="js-headline-line block">
-              <WordRotator words={dict.hero.titleRotators} />
-            </span>
+            <span className="js-headline-line block italic text-accent">{dict.hero.titleAccent}</span>
           </h1>
 
-          <p className="js-sub mt-7 max-w-[460px] text-[17px] leading-relaxed text-ink-muted">{dict.hero.sub}</p>
+          <div className="js-sub mt-7 max-w-[480px]">
+            <p className="text-[19px] md:text-[21px] font-medium leading-snug text-ink">
+              {dict.hero.subLead}
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{dict.hero.sub}</p>
+          </div>
 
           <div className="js-cta mt-9 flex flex-wrap gap-4">
             <MagneticButton href={`/${locale}/contact`} className="btn-primary !px-8 !py-4 text-[15px]">
