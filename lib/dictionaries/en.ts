@@ -263,7 +263,7 @@ const en = {
     contact: 'Get in touch',
     follow: 'Follow',
     rights: 'All rights reserved.',
-    crafted: 'Crafted in Ebène · Mauritius',
+    crafted: 'Crafted in Rose-Belle · Mauritius',
   },
 } as const;
 

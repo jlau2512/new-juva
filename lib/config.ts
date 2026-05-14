@@ -9,7 +9,7 @@ export const SITE = {
   email: 'hello@juva.design',
   phone: '+230 5968 6136',
   whatsapp: '23059686136', // wa.me digits, no plus
-  city: 'Ebène',
+  city: 'Rose-Belle',
   country: 'Mauritius',
   founded: '2022',
   // Replace with your deployed Google Apps Script Web App URL after running setup.

@@ -263,7 +263,7 @@ const fr = {
     contact: 'Contact',
     follow: 'Suivre',
     rights: 'Tous droits réservés.',
-    crafted: 'Conçu à Ébène · Maurice',
+    crafted: 'Conçu à Rose-Belle · Maurice',
   },
 };
 
