@@ -1,7 +1,7 @@
 /**
  * JUVA Lead Capture — Google Apps Script (v2)
  * ============================================
- * Handles two kinds of submissions from juva.mu:
+ * Handles two kinds of submissions from juva.design:
  *   1) Quote wizard  (source: "quote-wizard")
  *   2) Exit-intent / audit request (source: "exit-intent")
  *
@@ -27,7 +27,7 @@
  */
 
 const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';     // ← Replace
-const NOTIFY_EMAIL = 'hello@juva.mu';              // ← Your inbox
+const NOTIFY_EMAIL = 'hello@juva.design';           // ← Your inbox
 const SHEET_NAME = 'Leads';
 
 const SERVICE_LABEL = {
@@ -145,8 +145,8 @@ function sendAutoReply(d) {
     ? 'Bien reçu — la team JUVA revient vers vous sous 24h'
     : 'Got it — JUVA will follow up within 24 hours';
   const body = isFr
-    ? `Bonjour ${d.firstName || ''},\n\nMerci pour votre message. Nous l’avons bien reçu et reviendrons vers vous personnellement sous 24h ouvrées.\n\nEn attendant, n’hésitez pas à répondre à cet email avec toute info supplémentaire (lien, deadline, exemples).\n\n— L’équipe JUVA\nhello@juva.mu · juva.mu`
-    : `Hi ${d.firstName || ''},\n\nThanks for reaching out. We received your message and will follow up personally within 24 business hours.\n\nIn the meantime, feel free to reply to this email with any extra context (links, deadline, references).\n\n— The JUVA team\nhello@juva.mu · juva.mu`;
+    ? `Bonjour ${d.firstName || ''},\n\nMerci pour votre message. Nous l’avons bien reçu et reviendrons vers vous personnellement sous 24h ouvrées.\n\nEn attendant, n’hésitez pas à répondre à cet email avec toute info supplémentaire (lien, deadline, exemples).\n\n— L’équipe JUVA\nhello@juva.design · juva.design`
+    : `Hi ${d.firstName || ''},\n\nThanks for reaching out. We received your message and will follow up personally within 24 business hours.\n\nIn the meantime, feel free to reply to this email with any extra context (links, deadline, references).\n\n— The JUVA team\nhello@juva.design · juva.design`;
 
   GmailApp.sendEmail(d.email, subject, body, { name: 'JUVA Studio' });
 }

@@ -5,8 +5,8 @@ export const SITE = {
     en: 'We give birth to brands, websites & apps.',
     fr: 'Nous donnons vie à vos marques, sites et applications.',
   },
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://juva.mu',
-  email: 'hello@juva.mu',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://juva.design',
+  email: 'hello@juva.design',
   phone: '+230 5968 6136',
   whatsapp: '23059686136', // wa.me digits, no plus
   city: 'Ebène',

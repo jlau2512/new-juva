@@ -110,7 +110,7 @@ const en = {
     sending: 'Sending…',
     successTitle: 'Got it. Sit tight.',
     successBody: 'We just emailed you a confirmation and we will follow up personally within 24 hours.',
-    errorBody: 'Something went wrong. Could you email us at hello@juva.mu? We will respond fast.',
+    errorBody: 'Something went wrong. Could you email us at hello@juva.design? We will respond fast.',
     steps: [
       {
         label: 'What do you need?',

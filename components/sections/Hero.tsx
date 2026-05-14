@@ -56,21 +56,26 @@ function WordRotator({ words }: { words: readonly string[] }) {
     const t = setInterval(() => setIdx((v) => (v + 1) % words.length), 2600);
     return () => clearInterval(t);
   }, [words.length]);
+  // Reserve width with the longest word so the line never reflows mid-rotation.
+  const longest = words.reduce((a, b) => (b.length > a.length ? b : a), words[0]);
   return (
-    <span className="relative inline-block align-baseline">
+    <span className="relative inline-block overflow-hidden align-bottom">
+      {/* invisible spacer keeps the headline width/height stable */}
+      <span className="invisible italic" aria-hidden>
+        {longest}
+      </span>
       <AnimatePresence mode="wait">
         <motion.span
           key={idx}
-          initial={{ y: '100%', opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: '-100%', opacity: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-block italic text-accent"
+          initial={{ y: '110%' }}
+          animate={{ y: 0 }}
+          exit={{ y: '-110%' }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 inline-block italic text-accent"
         >
           {words[idx]}
         </motion.span>
       </AnimatePresence>
-      <span className="invisible italic">{words[0]}</span>
     </span>
   );
 }
@@ -177,7 +182,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             <span className="section-label">{dict.hero.eyebrow}</span>
           </div>
 
-          <h1 className="mt-6 font-display text-[clamp(46px,7vw,104px)] leading-[0.96] tracking-[-0.02em] text-ink">
+          <h1 className="mt-5 font-display text-[clamp(40px,4.6vw,76px)] leading-[1.04] tracking-[-0.015em] text-ink">
             <span className="js-headline-line block">{dict.hero.titleA}</span>
             <span className="js-headline-line block">
               <WordRotator words={dict.hero.titleRotators} />

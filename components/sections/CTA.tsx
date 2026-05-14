@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import MagneticButton from '@/components/MagneticButton';
 import { ArrowRight } from 'lucide-react';
+import { SITE } from '@/lib/config';
 import type { Dict } from '@/lib/i18n';
 
 export default function CTA({ locale, dict }: { locale: string; dict: Dict }) {
@@ -45,7 +46,7 @@ export default function CTA({ locale, dict }: { locale: string; dict: Dict }) {
           <MagneticButton href={`/${locale}/contact`} className="btn-primary text-base !px-8 !py-5">
             {dict.cta.primary} <ArrowRight size={17} />
           </MagneticButton>
-          <a href={`mailto:hello@juva.mu`} className="btn-ghost text-base !px-8 !py-5">{dict.cta.secondary}</a>
+          <a href={`mailto:${SITE.email}`} className="btn-ghost text-base !px-8 !py-5">{dict.cta.secondary}</a>
         </div>
       </div>
     </section>

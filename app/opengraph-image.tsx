@@ -45,7 +45,7 @@ export default async function OG() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', color: '#888', fontSize: 24 }}>
           <span>Premium digital studio · Mauritius</span>
-          <span>juva.mu</span>
+          <span>juva.design</span>
         </div>
       </div>
     ),

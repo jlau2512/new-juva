@@ -110,7 +110,7 @@ const fr = {
     sending: 'Envoi…',
     successTitle: 'C’est noté.',
     successBody: 'Nous venons de vous envoyer une confirmation et nous reviendrons vers vous personnellement sous 24h.',
-    errorBody: 'Une erreur s’est produite. Pouvez-vous écrire à hello@juva.mu ? Nous répondons vite.',
+    errorBody: 'Une erreur s’est produite. Pouvez-vous écrire à hello@juva.design ? Nous répondons vite.',
     steps: [
       {
         label: 'De quoi avez-vous besoin ?',
