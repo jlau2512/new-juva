@@ -150,16 +150,16 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative isolate min-h-dvh flex flex-col justify-center overflow-hidden pt-28 pb-20">
+    <section ref={sectionRef} className="relative isolate min-h-dvh flex items-center overflow-hidden pt-28 pb-20 lg:py-0">
       {/* Ambient orb */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <div className="absolute top-[18%] left-[10%] w-[520px] h-[520px] rounded-full bg-accent/[0.05] blur-[100px]" />
+        <div className="absolute top-[18%] left-[6%] w-[520px] h-[520px] rounded-full bg-accent/[0.05] blur-[100px]" />
       </div>
 
-      {/* 3D plant — right side on desktop; SVG fallback otherwise */}
+      {/* 3D plant fills the right ~50% on desktop; SVG fallback otherwise */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         {use3D ? (
-          <div className="absolute right-0 top-0 h-full w-full lg:w-[54%] opacity-95 pointer-events-auto">
+          <div className="absolute right-0 top-0 h-full w-full lg:w-[50%] opacity-95 pointer-events-auto">
             {SPLINE_SCENE ? (
               <SplineScene scene={SPLINE_SCENE} className="!w-full !h-full" />
             ) : (
@@ -167,22 +167,26 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             )}
           </div>
         ) : (
-          <div className="absolute right-0 bottom-0 w-[280px] sm:w-[400px] lg:w-[440px] h-full max-h-[680px] opacity-50">
+          <div className="absolute right-0 bottom-0 w-[260px] sm:w-[360px] lg:w-[44%] h-full max-h-[680px] opacity-40 lg:opacity-90">
             <TreeSVG />
           </div>
         )}
       </div>
 
-      {/* Soft vignette — keeps the left-side text legible over the scene */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg via-bg/70 to-bg/30 lg:from-bg lg:via-bg/85 lg:to-transparent" aria-hidden />
+      {/* Left-to-right dark vignette — keeps the left-anchored text legible */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg via-bg/85 to-bg/40 lg:from-bg lg:via-bg/85 lg:to-transparent"
+        aria-hidden
+      />
 
-      <div className="container-x relative z-10">
-        <div className="lg:max-w-[56%]">
+      {/* Content — LEFT-ANCHORED, not inside the centered container */}
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:pl-16 xl:pl-24 2xl:pl-32">
+        <div className="max-w-[36rem] lg:max-w-[44rem]">
           <div className="js-eyebrow">
             <span className="section-label">{dict.hero.eyebrow}</span>
           </div>
 
-          <h1 className="mt-5 font-display text-[clamp(44px,5vw,88px)] leading-[1.0] tracking-[-0.02em] text-ink">
+          <h1 className="mt-5 font-display text-[clamp(48px,7.5vw,132px)] leading-[0.95] tracking-[-0.02em] text-ink">
             {dict.hero.titleLines.map((line, i) => (
               <span key={i} className="js-headline-line block">
                 {line}
@@ -193,18 +197,18 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             </span>
           </h1>
 
-          <p className="js-sub mt-8 max-w-[480px] text-[17px] leading-relaxed text-ink-muted">{dict.hero.sub}</p>
+          <p className="js-sub mt-7 max-w-[460px] text-[17px] leading-relaxed text-ink-muted">{dict.hero.sub}</p>
 
-          <div className="js-cta mt-10 flex flex-wrap gap-4">
-            <MagneticButton href={`/${locale}/contact`} className="btn-primary">
+          <div className="js-cta mt-9 flex flex-wrap gap-4">
+            <MagneticButton href={`/${locale}/contact`} className="btn-primary !px-8 !py-4 text-[15px]">
               {dict.hero.primaryCta} <ArrowRight size={16} />
             </MagneticButton>
-            <MagneticButton href={`/${locale}/work`} className="btn-ghost">
+            <MagneticButton href={`/${locale}/work`} className="btn-ghost !px-8 !py-4 text-[15px]">
               {dict.hero.secondaryCta}
             </MagneticButton>
           </div>
 
-          <div className="mt-14 flex flex-wrap gap-x-10 gap-y-3">
+          <div className="mt-12 flex flex-wrap gap-x-9 gap-y-3">
             {[dict.hero.proofA, dict.hero.proofB, dict.hero.proofC].map((s, i) => (
               <div key={i} className="js-stat flex items-center gap-2.5 text-sm text-ink-muted">
                 <span className="h-1 w-1 rounded-full bg-accent flex-shrink-0" />
@@ -215,7 +219,10 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
         </div>
       </div>
 
-      <div className="js-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10" aria-hidden>
+      <div
+        className="js-scroll-hint absolute bottom-8 left-6 sm:left-10 lg:left-16 xl:left-24 2xl:left-32 flex flex-col items-center gap-2 z-10"
+        aria-hidden
+      >
         <div className="h-8 w-px bg-gradient-to-b from-accent/50 to-transparent animate-floatY" />
       </div>
     </section>
