@@ -7,6 +7,7 @@ import Work from '@/components/sections/Work';
 import Testimonials from '@/components/sections/Testimonials';
 import FAQ from '@/components/sections/FAQ';
 import CTA from '@/components/sections/CTA';
+import FallingLeaves from '@/components/FallingLeaves';
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/config';
 
@@ -33,6 +34,7 @@ export default function Home({ params }: { params: { locale: Locale } }) {
   const dict = getDict(params.locale);
   return (
     <>
+      <FallingLeaves />
       <Hero locale={params.locale} dict={dict} />
       <Marquee dict={dict} />
       <Services dict={dict} />

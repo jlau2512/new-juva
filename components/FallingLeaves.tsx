@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react';
 
 /* ---------------------------------------------------------------------------
- * Site-wide ambient layer: accent leaves + occasional brand words drift down
+ * Home-page ambient layer: accent leaves + occasional brand words detach from
+ * the hero tree's canopy (upper-right zone) and drift down-and-across the page
  * with a wind-blown flutter. Pure CSS animations (transform + opacity only) —
- * runs on the compositor thread, zero main-thread cost, stays smooth on every
- * device. Mounts ~2.8s after load so it begins once the hero tree has grown.
+ * runs on the compositor thread, zero main-thread cost, smooth on every device.
+ * Mounts ~2.8s after load so it begins once the hero tree has grown.
  * Respects prefers-reduced-motion (renders nothing).
  * ------------------------------------------------------------------------- */
 
@@ -22,8 +23,9 @@ type Particle = {
   id: number;
   kind: 'leaf' | 'word';
   word?: string;
-  leftVw: number;
-  driftVw: number;
+  leftVw: number; // spawn X — clustered over the tree canopy (right side)
+  originTopVh: number; // spawn Y — within the canopy band, not the page top
+  driftVw: number; // wind carries it leftward across the page as it falls
   fallDur: number;
   delay: number;
   scale: number;
@@ -49,10 +51,11 @@ function generate(): Particle[] {
     out.push({
       id: id++,
       kind: 'leaf',
-      leftVw: rand(-2, 100),
-      driftVw: rand(-10, 14),
+      leftVw: rand(46, 99), // over the hero tree (right ~half)
+      originTopVh: rand(3, 44), // canopy band
+      driftVw: rand(-72, 6), // blown leftward, across the whole page
       fallDur,
-      delay: -rand(0, fallDur), // negative → already mid-fall on mount (fills the screen)
+      delay: -rand(0, fallDur), // negative → already mid-fall on mount
       scale: rand(0.55, 1.25),
       baseOpacity: rand(0.25, 0.6),
       swayDur: rand(2.4, 4.8),
@@ -69,8 +72,9 @@ function generate(): Particle[] {
       id: id++,
       kind: 'word',
       word: WORDS[Math.floor(rand(0, WORDS.length))],
-      leftVw: rand(2, 86),
-      driftVw: rand(-8, 12),
+      leftVw: rand(50, 92),
+      originTopVh: rand(6, 40),
+      driftVw: rand(-56, 4),
       fallDur,
       delay: -rand(0, fallDur),
       scale: rand(0.85, 1.35),
@@ -89,9 +93,10 @@ function generate(): Particle[] {
 function ParticleEl({ p }: { p: Particle }) {
   return (
     <div
-      className="absolute top-0 will-change-transform"
+      className="absolute will-change-transform"
       style={{
         left: `${p.leftVw}vw`,
+        top: `${p.originTopVh}vh`,
         opacity: p.baseOpacity,
         animation: `leaf-fall ${p.fallDur}s linear ${p.delay}s infinite`,
         // @ts-expect-error -- CSS custom property

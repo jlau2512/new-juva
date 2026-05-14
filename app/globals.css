@@ -75,9 +75,9 @@
 @layer utilities {
   /* Ambient wind-blown leaves/words layer (FallingLeaves.tsx) */
   @keyframes leaf-fall {
-    0%   { transform: translate3d(0, -12vh, 0); opacity: 0; }
-    7%   { opacity: 1; }
-    93%  { opacity: 1; }
+    0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+    6%   { opacity: 1; }
+    90%  { opacity: 1; }
     100% { transform: translate3d(var(--drift, 4vw), 112vh, 0); opacity: 0; }
   }
   @keyframes leaf-sway {

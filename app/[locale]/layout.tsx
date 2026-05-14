@@ -8,7 +8,6 @@ import ScrollProgress from '@/components/ScrollProgress';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import ExitIntent from '@/components/ExitIntent';
 import Noise from '@/components/Noise';
-import FallingLeaves from '@/components/FallingLeaves';
 import Script from 'next/script';
 
 export function generateStaticParams() {
@@ -54,7 +53,6 @@ export default function LocaleLayout({
       <Noise />
       <SmoothScroll />
       <ScrollProgress />
-      <FallingLeaves />
       <Header locale={locale as Locale} dict={dict} />
       <main className="relative z-10">{children}</main>
       <Footer locale={locale as Locale} dict={dict} />
