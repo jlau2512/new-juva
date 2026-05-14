@@ -8,7 +8,7 @@ const en = {
   },
   hero: {
     eyebrow: 'Premium digital studio · Mauritius',
-    titleA: 'We give birth to',
+    titleLines: ['We give', 'birth to'],
     titleRotators: ['brands.', 'websites.', 'apps.', 'experiences.'],
     sub: 'A small studio in Ebène crafting fast, beautiful, conversion-focused digital products for ambitious teams across Mauritius and beyond.',
     primaryCta: 'Start a project',

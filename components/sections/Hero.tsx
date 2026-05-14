@@ -182,8 +182,12 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             <span className="section-label">{dict.hero.eyebrow}</span>
           </div>
 
-          <h1 className="mt-5 font-display text-[clamp(40px,4.6vw,76px)] leading-[1.04] tracking-[-0.015em] text-ink">
-            <span className="js-headline-line block">{dict.hero.titleA}</span>
+          <h1 className="mt-5 font-display text-[clamp(44px,5vw,88px)] leading-[1.0] tracking-[-0.02em] text-ink">
+            {dict.hero.titleLines.map((line, i) => (
+              <span key={i} className="js-headline-line block">
+                {line}
+              </span>
+            ))}
             <span className="js-headline-line block">
               <WordRotator words={dict.hero.titleRotators} />
             </span>

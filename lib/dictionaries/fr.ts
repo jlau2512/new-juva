@@ -8,7 +8,7 @@ const fr = {
   },
   hero: {
     eyebrow: 'Studio digital premium · Maurice',
-    titleA: 'Nous donnons vie à',
+    titleLines: ['Nous donnons', 'vie à'],
     titleRotators: ['vos marques.', 'vos sites web.', 'vos apps.', "l'expérience."],
     sub: 'Un petit studio à Ébène qui conçoit des produits digitaux rapides, élégants et orientés conversion pour des équipes ambitieuses à Maurice et au-delà.',
     primaryCta: 'Démarrer un projet',
