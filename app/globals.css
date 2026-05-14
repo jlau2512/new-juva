@@ -32,6 +32,17 @@
   .scroll-progress {
     @apply fixed top-0 left-0 right-0 z-[60] h-[2px] origin-left bg-accent;
   }
+  .loader {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(200, 255, 61, 0.18);
+    border-top-color: #C8FF3D;
+    animation: juva-spin 0.9s linear infinite;
+  }
+  @keyframes juva-spin {
+    to { transform: rotate(360deg); }
+  }
   .container-x { @apply mx-auto max-w-[1200px] px-6 md:px-10; }
   .h-display {
     font-family: var(--font-display), Georgia, serif;

@@ -1,9 +1,24 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 import { type Locale, type Dict } from '@/lib/i18n';
+
+// Default hero visual on capable desktops is a code-built React Three Fiber
+// 3D plant (Hero3DPlant). If NEXT_PUBLIC_SPLINE_SCENE is set, a Spline scene
+// is used instead. Both are lazy-loaded (ssr:false) so they never touch the
+// initial bundle. Mobile / low-end / reduced-motion falls back to TreeSVG.
+const Hero3DPlant = dynamic(() => import('@/components/Hero3DPlant'), {
+  ssr: false,
+  loading: () => null,
+});
+const SplineScene = dynamic(
+  () => import('@/components/SplineScene').then((m) => m.SplineScene),
+  { ssr: false, loading: () => null },
+);
+const SPLINE_SCENE = process.env.NEXT_PUBLIC_SPLINE_SCENE || '';
 
 function TreeSVG() {
   return (
@@ -15,107 +30,19 @@ function TreeSVG() {
       preserveAspectRatio="xMidYMax meet"
       aria-hidden
     >
-      {/* Trunk — drawn from bottom up */}
-      <path
-        className="js-trunk"
-        d="M 200 600 Q 198 500 200 400 Q 202 290 200 180 Q 198 130 200 90"
-        stroke="#C8FF3D"
-        strokeWidth="2"
-        fill="none"
-        strokeOpacity="0.85"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-
-      {/* Lower branches */}
-      <path
-        className="js-branch"
-        d="M 200 420 Q 165 410 128 392"
-        stroke="#C8FF3D"
-        strokeWidth="1.4"
-        fill="none"
-        strokeOpacity="0.75"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-      <path
-        className="js-branch"
-        d="M 200 400 Q 235 388 272 370"
-        stroke="#C8FF3D"
-        strokeWidth="1.4"
-        fill="none"
-        strokeOpacity="0.75"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-
-      {/* Mid branches */}
-      <path
-        className="js-branch"
-        d="M 200 295 Q 158 275 113 252"
-        stroke="#C8FF3D"
-        strokeWidth="1.2"
-        fill="none"
-        strokeOpacity="0.7"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-      <path
-        className="js-branch"
-        d="M 200 275 Q 245 252 292 228"
-        stroke="#C8FF3D"
-        strokeWidth="1.2"
-        fill="none"
-        strokeOpacity="0.7"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-
-      {/* Upper branches */}
-      <path
-        className="js-branch"
-        d="M 200 185 Q 175 168 148 150"
-        stroke="#C8FF3D"
-        strokeWidth="1"
-        fill="none"
-        strokeOpacity="0.65"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-      <path
-        className="js-branch"
-        d="M 200 168 Q 226 150 252 134"
-        stroke="#C8FF3D"
-        strokeWidth="1"
-        fill="none"
-        strokeOpacity="0.65"
-        strokeLinecap="round"
-        pathLength={1}
-        strokeDasharray="1"
-        strokeDashoffset="1"
-      />
-
-      {/* Leaves at branch tips (teardrop ellipses) */}
+      <path className="js-trunk" d="M 200 600 Q 198 500 200 400 Q 202 290 200 180 Q 198 130 200 90" stroke="#C8FF3D" strokeWidth="2" fill="none" strokeOpacity="0.85" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
+      <path className="js-branch" d="M 200 420 Q 165 410 128 392" stroke="#C8FF3D" strokeWidth="1.4" fill="none" strokeOpacity="0.75" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
+      <path className="js-branch" d="M 200 400 Q 235 388 272 370" stroke="#C8FF3D" strokeWidth="1.4" fill="none" strokeOpacity="0.75" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
+      <path className="js-branch" d="M 200 295 Q 158 275 113 252" stroke="#C8FF3D" strokeWidth="1.2" fill="none" strokeOpacity="0.7" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
+      <path className="js-branch" d="M 200 275 Q 245 252 292 228" stroke="#C8FF3D" strokeWidth="1.2" fill="none" strokeOpacity="0.7" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
+      <path className="js-branch" d="M 200 185 Q 175 168 148 150" stroke="#C8FF3D" strokeWidth="1" fill="none" strokeOpacity="0.65" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
+      <path className="js-branch" d="M 200 168 Q 226 150 252 134" stroke="#C8FF3D" strokeWidth="1" fill="none" strokeOpacity="0.65" strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset="1" />
       <ellipse className="js-leaf" cx="123" cy="390" rx="9" ry="13" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(-25 123 390)" />
       <ellipse className="js-leaf" cx="277" cy="368" rx="9" ry="13" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(25 277 368)" />
       <ellipse className="js-leaf" cx="108" cy="250" rx="8" ry="12" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(-30 108 250)" />
       <ellipse className="js-leaf" cx="297" cy="226" rx="8" ry="12" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(30 297 226)" />
       <ellipse className="js-leaf" cx="144" cy="148" rx="7" ry="11" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(-35 144 148)" />
       <ellipse className="js-leaf" cx="256" cy="132" rx="7" ry="11" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(35 256 132)" />
-
-      {/* Crown leaves */}
       <ellipse className="js-leaf" cx="200" cy="78" rx="7" ry="11" fill="#C8FF3D" fillOpacity="0.5" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" />
       <ellipse className="js-leaf" cx="180" cy="92" rx="6" ry="9" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(-22 180 92)" />
       <ellipse className="js-leaf" cx="220" cy="98" rx="6" ry="9" fill="#C8FF3D" fillOpacity="0.45" stroke="#C8FF3D" strokeWidth="0.6" strokeOpacity="0.7" transform="rotate(22 220 98)" />
@@ -148,8 +75,29 @@ function WordRotator({ words }: { words: readonly string[] }) {
   );
 }
 
+function useShould3D() {
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let webgl = false;
+    try {
+      const c = document.createElement('canvas');
+      webgl = !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {}
+    // memory & connection hints (avoid 3D on slow / low-memory devices)
+    const nav = navigator as unknown as { deviceMemory?: number; connection?: { saveData?: boolean; effectiveType?: string } };
+    const enoughMemory = (nav.deviceMemory ?? 4) >= 4;
+    const fastNet = !nav.connection?.saveData && !['slow-2g', '2g', '3g'].includes(nav.connection?.effectiveType ?? '');
+    setEnabled(isDesktop && webgl && !reducedMotion && enoughMemory && fastNet);
+  }, []);
+  return enabled;
+}
+
 export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const use3D = useShould3D();
 
   useEffect(() => {
     const root = sectionRef.current;
@@ -162,7 +110,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
       if (cancelled) return;
 
       ctx = gsap.context(() => {
-        // Hide content while the tree grows
+        // Hide content while the tree appears
         gsap.set(['.js-eyebrow', '.js-headline-line', '.js-sub', '.js-cta', '.js-stat', '.js-scroll-hint'], {
           opacity: 0,
           y: 24,
@@ -170,7 +118,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
 
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Tree: trunk → branches → leaves (~2.5s total)
+        // SVG entry timeline (only matters when SVG is rendered)
         tl.to('.js-trunk', { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out' }, 0);
         tl.to('.js-branch', { strokeDashoffset: 0, duration: 0.7, stagger: 0.13, ease: 'power2.out' }, 0.4);
         tl.fromTo(
@@ -180,13 +128,13 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
           1.0,
         );
 
-        // Hero content fades in once the tree is largely formed
-        tl.to('.js-eyebrow', { opacity: 1, y: 0, duration: 0.6 }, 2.2);
-        tl.to('.js-headline-line', { opacity: 1, y: 0, duration: 0.85, stagger: 0.1 }, 2.3);
-        tl.to('.js-sub', { opacity: 1, y: 0, duration: 0.7 }, 2.6);
-        tl.to('.js-cta', { opacity: 1, y: 0, duration: 0.7 }, 2.8);
-        tl.to('.js-stat', { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, 3.0);
-        tl.to('.js-scroll-hint', { opacity: 1, y: 0, duration: 0.6 }, 3.2);
+        // Hero content fades in (works for both 3D and SVG modes)
+        tl.to('.js-eyebrow', { opacity: 1, y: 0, duration: 0.6 }, 1.6);
+        tl.to('.js-headline-line', { opacity: 1, y: 0, duration: 0.85, stagger: 0.1 }, 1.7);
+        tl.to('.js-sub', { opacity: 1, y: 0, duration: 0.7 }, 2.0);
+        tl.to('.js-cta', { opacity: 1, y: 0, duration: 0.7 }, 2.2);
+        tl.to('.js-stat', { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, 2.4);
+        tl.to('.js-scroll-hint', { opacity: 1, y: 0, duration: 0.6 }, 2.7);
       }, root);
     })();
 
@@ -198,17 +146,30 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
 
   return (
     <section ref={sectionRef} className="relative isolate min-h-dvh flex flex-col justify-center overflow-hidden pt-28 pb-20">
-      {/* Ambient orb — static, no scroll parallax */}
+      {/* Ambient orb */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute top-[18%] left-[10%] w-[520px] h-[520px] rounded-full bg-accent/[0.05] blur-[100px]" />
       </div>
 
-      {/* Tree SVG — centered, anchored to bottom */}
-      <div className="absolute inset-0 flex items-end justify-center pointer-events-none opacity-45 md:opacity-60" aria-hidden>
-        <div className="w-[360px] sm:w-[480px] md:w-[640px] h-full max-h-[760px]">
-          <TreeSVG />
-        </div>
+      {/* 3D plant (desktop, capable devices) — fallback to SVG otherwise */}
+      <div className="absolute inset-0 flex items-end justify-center pointer-events-none lg:pointer-events-auto" aria-hidden>
+        {use3D ? (
+          <div className="w-full h-full opacity-90">
+            {SPLINE_SCENE ? (
+              <SplineScene scene={SPLINE_SCENE} className="!w-full !h-full" />
+            ) : (
+              <Hero3DPlant />
+            )}
+          </div>
+        ) : (
+          <div className="w-[360px] sm:w-[480px] h-full max-h-[760px] opacity-50 pointer-events-none">
+            <TreeSVG />
+          </div>
+        )}
       </div>
+
+      {/* Soft vignette so foreground text stays legible over 3D scene */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg via-transparent to-bg/40 lg:from-bg/95 lg:via-bg/30 lg:to-transparent" aria-hidden />
 
       <div className="container-x relative z-10">
         <div className="js-eyebrow">
@@ -243,7 +204,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
         </div>
       </div>
 
-      <div className="js-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden>
+      <div className="js-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10" aria-hidden>
         <div className="h-8 w-px bg-gradient-to-b from-accent/50 to-transparent animate-floatY" />
       </div>
     </section>

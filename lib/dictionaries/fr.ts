@@ -61,12 +61,12 @@ const fr = {
     sub: 'Un échantillon de ce que nous avons livré récemment. Tous sont des sites ou apps en production.',
     cta: 'Voir tous les projets',
     items: [
-      { tag: 'Construction', title: 'ENC Construction', desc: 'Site marketing pour une entreprise de construction mauricienne — résidentiel et commercial.', url: 'https://enc-construction-co-ltd-cf383c.webflow.io/' },
-      { tag: 'Conciergerie', title: 'Luxoria', desc: 'Site de conciergerie de luxe avec demandes de réservation sur mesure pour une clientèle haut de gamme.', url: 'https://luxoriaconciergerie.com/' },
-      { tag: 'Formation', title: 'Closing Delite', desc: 'Landing page conversion-focused pour une formation de closing en français.', url: 'https://formation-de-closing-delite.webflow.io/' },
-      { tag: 'Coaching', title: 'TCR Mastery', desc: 'Site de formation et tunnel de vente pour un programme de mastery en ligne.', url: 'https://tcrmastery.webflow.io/' },
-      { tag: 'Logistique', title: 'Island Container Solution', desc: 'Spécialiste de la location et conversion de conteneurs pour Maurice et l’océan Indien.', url: 'https://islandcontainersolution.mu/' },
-      { tag: 'SaaS', title: 'SD Surveyor', desc: 'Application de rapport d’arpenteur — remplace le papier par des formulaires structurés.', url: 'https://www.sdsurveyor.app/' },
+      { tag: 'Construction', title: 'ENC Construction', desc: 'Site marketing pour une entreprise de construction mauricienne — résidentiel et commercial.', url: 'https://enc-construction-co-ltd-cf383c.webflow.io/', image: '/work/enc-construction.jpg' },
+      { tag: 'Conciergerie', title: 'Luxoria', desc: 'Site de conciergerie de luxe avec demandes de réservation sur mesure pour une clientèle haut de gamme.', url: 'https://luxoriaconciergerie.com/', image: '/work/luxoria.jpg' },
+      { tag: 'Formation', title: 'Closing Delite', desc: 'Landing page conversion-focused pour une formation de closing en français.', url: 'https://formation-de-closing-delite.webflow.io/', image: '/work/closing-delite.jpg' },
+      { tag: 'Coaching', title: 'TCR Mastery', desc: 'Site de formation et tunnel de vente pour un programme de mastery en ligne.', url: 'https://tcrmastery.webflow.io/', image: '/work/tcr-mastery.jpg' },
+      { tag: 'Logistique', title: 'Island Container Solution', desc: 'Spécialiste de la location et conversion de conteneurs pour Maurice et l’océan Indien.', url: 'https://islandcontainersolution.mu/', image: '/work/island-container.jpg' },
+      { tag: 'SaaS', title: 'SD Surveyor', desc: 'Application de rapport d’arpenteur — remplace le papier par des formulaires structurés.', url: 'https://www.sdsurveyor.app/', image: '/work/sd-surveyor.jpg' },
     ],
   },
   testimonials: {

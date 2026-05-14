@@ -1,20 +1,18 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import type { Dict, Locale } from '@/lib/i18n';
 
-const CARD_COLORS = [
-  'from-[#1a2412] to-[#0d1309]',
-  'from-[#1a1412] to-[#0d0d09]',
-  'from-[#121a1a] to-[#090d0d]',
-  'from-[#1a1218] to-[#0d090d]',
-  'from-[#181a12] to-[#0d0e09]',
-  'from-[#121814] to-[#080d0a]',
-];
-
-type WorkItem = { readonly tag: string; readonly title: string; readonly desc: string; readonly url: string };
+type WorkItem = {
+  readonly tag: string;
+  readonly title: string;
+  readonly desc: string;
+  readonly url: string;
+  readonly image: string;
+};
 
 function WorkCard({ item, idx }: { item: WorkItem; idx: number }) {
   const [hovered, setHovered] = useState(false);
@@ -26,49 +24,61 @@ function WorkCard({ item, idx }: { item: WorkItem; idx: number }) {
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       aria-label={`${item.title} — ${item.tag}. Opens in new tab.`}
-      className="js-work-card group relative block overflow-hidden rounded-3xl aspect-[4/3]"
+      className="js-work-card group relative block overflow-hidden rounded-3xl aspect-[4/3] bg-bg-card"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${CARD_COLORS[idx % CARD_COLORS.length]}`} />
-      <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      {/* Screenshot background */}
+      <Image
+        src={item.image}
+        alt={`${item.title} website screenshot`}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        priority={idx < 3}
+      />
+
+      {/* Subtle desaturate filter at rest */}
+      <div className="absolute inset-0 bg-bg/30 transition-colors duration-500 group-hover:bg-bg/0" />
+
+      {/* Bottom gradient for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
       {/* Tag */}
       <div className="absolute top-5 left-5 z-10">
-        <span className="font-label text-[10px] uppercase tracking-[0.25em] text-accent/80 border border-accent/20 bg-accent/[0.06] rounded-pill px-3 py-1">
+        <span className="font-label text-[10px] uppercase tracking-[0.25em] text-accent border border-accent/40 bg-bg/60 backdrop-blur-sm rounded-pill px-3 py-1">
           {item.tag}
         </span>
       </div>
 
       {/* External link indicator */}
       <motion.div
-        animate={{ opacity: hovered ? 1 : 0.5, scale: hovered ? 1 : 0.92 }}
+        animate={{ opacity: hovered ? 1 : 0.6, scale: hovered ? 1 : 0.92 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="absolute top-5 right-5 z-10 pointer-events-none"
         aria-hidden
       >
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/10 border border-accent/30 text-accent">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-bg/70 backdrop-blur-sm border border-accent/40 text-accent">
           <ArrowUpRight size={16} />
         </span>
       </motion.div>
 
-      {/* Hover overlay with title + desc */}
+      {/* Always-visible title + tag, smoothly translates up on hover */}
       <motion.div
-        initial={false}
-        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 12 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 z-10 flex flex-col justify-end p-7 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none"
+        animate={{ y: hovered ? -56 : 0 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-5 left-5 right-5 z-10 pointer-events-none"
       >
-        <h3 className="font-display text-3xl font-medium text-ink">{item.title}</h3>
-        <p className="mt-2 text-sm text-ink-muted max-w-[280px]">{item.desc}</p>
+        <h3 className="font-display text-2xl md:text-[26px] font-medium text-ink leading-tight">{item.title}</h3>
       </motion.div>
 
-      {/* Always-visible title (fades on hover) */}
-      <motion.div
-        animate={{ opacity: hovered ? 0 : 1, y: hovered ? -8 : 0 }}
-        transition={{ duration: 0.3 }}
-        className="absolute bottom-5 left-5 z-10 pointer-events-none"
+      {/* Description (slides in from below on hover) */}
+      <motion.p
+        initial={false}
+        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 16 }}
+        transition={{ duration: 0.4, delay: hovered ? 0.05 : 0, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-5 left-5 right-12 z-10 text-sm text-ink-muted pointer-events-none"
       >
-        <h3 className="font-display text-2xl font-medium text-ink/90">{item.title}</h3>
-      </motion.div>
+        {item.desc}
+      </motion.p>
     </motion.a>
   );
 }
