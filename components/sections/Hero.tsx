@@ -151,10 +151,10 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
         <div className="absolute top-[18%] left-[10%] w-[520px] h-[520px] rounded-full bg-accent/[0.05] blur-[100px]" />
       </div>
 
-      {/* 3D plant (desktop, capable devices) — fallback to SVG otherwise */}
-      <div className="absolute inset-0 flex items-end justify-center pointer-events-none lg:pointer-events-auto" aria-hidden>
+      {/* 3D plant — right side on desktop; SVG fallback otherwise */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
         {use3D ? (
-          <div className="w-full h-full opacity-90">
+          <div className="absolute right-0 top-0 h-full w-full lg:w-[54%] opacity-95 pointer-events-auto">
             {SPLINE_SCENE ? (
               <SplineScene scene={SPLINE_SCENE} className="!w-full !h-full" />
             ) : (
@@ -162,45 +162,47 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             )}
           </div>
         ) : (
-          <div className="w-[360px] sm:w-[480px] h-full max-h-[760px] opacity-50 pointer-events-none">
+          <div className="absolute right-0 bottom-0 w-[280px] sm:w-[400px] lg:w-[440px] h-full max-h-[680px] opacity-50">
             <TreeSVG />
           </div>
         )}
       </div>
 
-      {/* Soft vignette so foreground text stays legible over 3D scene */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg via-transparent to-bg/40 lg:from-bg/95 lg:via-bg/30 lg:to-transparent" aria-hidden />
+      {/* Soft vignette — keeps the left-side text legible over the scene */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-bg via-bg/70 to-bg/30 lg:from-bg lg:via-bg/85 lg:to-transparent" aria-hidden />
 
       <div className="container-x relative z-10">
-        <div className="js-eyebrow">
-          <span className="section-label">{dict.hero.eyebrow}</span>
-        </div>
+        <div className="lg:max-w-[56%]">
+          <div className="js-eyebrow">
+            <span className="section-label">{dict.hero.eyebrow}</span>
+          </div>
 
-        <h1 className="mt-6 font-display text-[clamp(54px,9vw,120px)] leading-[0.95] tracking-[-0.02em] text-ink">
-          <span className="js-headline-line block">{dict.hero.titleA}</span>
-          <span className="js-headline-line block">
-            <WordRotator words={dict.hero.titleRotators} />
-          </span>
-        </h1>
+          <h1 className="mt-6 font-display text-[clamp(46px,7vw,104px)] leading-[0.96] tracking-[-0.02em] text-ink">
+            <span className="js-headline-line block">{dict.hero.titleA}</span>
+            <span className="js-headline-line block">
+              <WordRotator words={dict.hero.titleRotators} />
+            </span>
+          </h1>
 
-        <p className="js-sub mt-8 max-w-[480px] text-[17px] leading-relaxed text-ink-muted">{dict.hero.sub}</p>
+          <p className="js-sub mt-8 max-w-[480px] text-[17px] leading-relaxed text-ink-muted">{dict.hero.sub}</p>
 
-        <div className="js-cta mt-10 flex flex-wrap gap-4">
-          <MagneticButton href={`/${locale}/contact`} className="btn-primary">
-            {dict.hero.primaryCta} <ArrowRight size={16} />
-          </MagneticButton>
-          <MagneticButton href={`/${locale}/work`} className="btn-ghost">
-            {dict.hero.secondaryCta}
-          </MagneticButton>
-        </div>
+          <div className="js-cta mt-10 flex flex-wrap gap-4">
+            <MagneticButton href={`/${locale}/contact`} className="btn-primary">
+              {dict.hero.primaryCta} <ArrowRight size={16} />
+            </MagneticButton>
+            <MagneticButton href={`/${locale}/work`} className="btn-ghost">
+              {dict.hero.secondaryCta}
+            </MagneticButton>
+          </div>
 
-        <div className="mt-14 flex flex-wrap gap-x-10 gap-y-3">
-          {[dict.hero.proofA, dict.hero.proofB, dict.hero.proofC].map((s, i) => (
-            <div key={i} className="js-stat flex items-center gap-2.5 text-sm text-ink-muted">
-              <span className="h-1 w-1 rounded-full bg-accent flex-shrink-0" />
-              {s}
-            </div>
-          ))}
+          <div className="mt-14 flex flex-wrap gap-x-10 gap-y-3">
+            {[dict.hero.proofA, dict.hero.proofB, dict.hero.proofC].map((s, i) => (
+              <div key={i} className="js-stat flex items-center gap-2.5 text-sm text-ink-muted">
+                <span className="h-1 w-1 rounded-full bg-accent flex-shrink-0" />
+                {s}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

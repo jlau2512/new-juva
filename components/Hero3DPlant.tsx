@@ -9,9 +9,22 @@ const ACCENT = '#C8FF3D';
 /* ---------------------------------------------------------------------------
  * Procedural plant generation — deterministic (seeded RNG), runs once.
  * A trunk grows up, splits into 3 levels of branches, leaf clusters at tips.
+ * Each segment carries a growStart/growDuration so the plant reveals
+ * progressively (trunk first, then branches cascade out, then leaves bloom).
  * ------------------------------------------------------------------------- */
-type Segment = { curve: THREE.CatmullRomCurve3; radius: number; level: number };
-type Leaf = { position: THREE.Vector3; scale: number; rotation: [number, number, number] };
+type Segment = {
+  curve: THREE.CatmullRomCurve3;
+  radius: number;
+  level: number;
+  growStart: number;
+  growDuration: number;
+};
+type Leaf = {
+  position: THREE.Vector3;
+  scale: number;
+  rotation: [number, number, number];
+  growStart: number;
+};
 
 function generatePlant() {
   let seed = 8675309;
@@ -30,9 +43,10 @@ function generatePlant() {
     radius: number,
     level: number,
     maxLevel: number,
+    growStart: number,
   ) {
+    const growDuration = 0.7 - level * 0.06;
     const end = start.clone().addScaledVector(dir, length);
-    // gentle organic curve via an offset control point
     const ctrl = start
       .clone()
       .addScaledVector(dir, length * 0.5)
@@ -47,7 +61,10 @@ function generatePlant() {
       curve: new THREE.CatmullRomCurve3([start, ctrl, end]),
       radius,
       level,
+      growStart,
+      growDuration,
     });
+    const growEnd = growStart + growDuration;
 
     if (level >= maxLevel) {
       const count = 3 + Math.floor(rng() * 4);
@@ -64,6 +81,7 @@ function generatePlant() {
             ),
           scale: 0.07 + rng() * 0.07,
           rotation: [rng() * Math.PI, rng() * Math.PI, rng() * Math.PI],
+          growStart: growEnd + rng() * 0.35,
         });
       }
       return;
@@ -83,16 +101,33 @@ function generatePlant() {
         .applyAxisAngle(side, tilt)
         .applyAxisAngle(dir, azimuth)
         .normalize();
-      grow(end, newDir, length * (0.62 + rng() * 0.18), radius * 0.62, level + 1, maxLevel);
+      // children start growing just before the parent finishes → cascade
+      grow(
+        end,
+        newDir,
+        length * (0.62 + rng() * 0.18),
+        radius * 0.62,
+        level + 1,
+        maxLevel,
+        growEnd - 0.18 + rng() * 0.12,
+      );
     }
   }
 
-  grow(new THREE.Vector3(0, -1.7, 0), new THREE.Vector3(0, 1, 0), 1.7, 0.085, 0, 3);
+  grow(new THREE.Vector3(0, -1.7, 0), new THREE.Vector3(0, 1, 0), 1.7, 0.085, 0, 3, 0);
   return { segments, leaves };
 }
 
+const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
+const easeOutBack = (x: number) => {
+  const c1 = 1.70158;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+};
+
 /* ---------------------------------------------------------------------------
- * The plant mesh group — mouse-reactive rotation + idle sway + growth-in.
+ * The plant mesh group. Growth = progressive geometry draw-range reveal
+ * (the tube literally draws itself from base to tip), NOT a uniform pop-scale.
  * ------------------------------------------------------------------------- */
 function Plant({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: number }> }) {
   const groupRef = useRef<THREE.Group>(null);
@@ -100,9 +135,17 @@ function Plant({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: nu
 
   const tubeGeometries = useMemo(
     () =>
-      segments.map((s) =>
-        new THREE.TubeGeometry(s.curve, Math.max(6, 14 - s.level * 2), s.radius, 5, false),
-      ),
+      segments.map((s) => {
+        const g = new THREE.TubeGeometry(
+          s.curve,
+          Math.max(8, 16 - s.level * 2),
+          s.radius,
+          5,
+          false,
+        );
+        g.setDrawRange(0, 0); // hidden until the growth animation reveals it
+        return g;
+      }),
     [segments],
   );
   const leafGeometry = useMemo(() => new THREE.IcosahedronGeometry(1, 0), []);
@@ -131,30 +174,47 @@ function Plant({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: nu
     [],
   );
 
+  const leafRefs = useRef<(THREE.Mesh | null)[]>([]);
   const mountTime = useRef<number | null>(null);
 
   useFrame((state) => {
-    const g = groupRef.current;
-    if (!g) return;
     const t = state.clock.getElapsedTime();
     if (mountTime.current === null) mountTime.current = t;
     const elapsed = t - mountTime.current;
 
-    // growth-in: ease-out cubic scale 0 → 1 over ~2.2s
-    const growth = Math.min(1, elapsed / 2.2);
-    g.scale.setScalar(1 - Math.pow(1 - growth, 3));
+    // grow branches: each tube draws itself base → tip via draw range
+    for (let i = 0; i < tubeGeometries.length; i++) {
+      const seg = segments[i];
+      const geo = tubeGeometries[i];
+      const p = Math.min(1, Math.max(0, (elapsed - seg.growStart) / seg.growDuration));
+      const eased = easeOutCubic(p);
+      const idxCount = geo.index ? geo.index.count : 0;
+      geo.setDrawRange(0, Math.ceil(idxCount * eased));
+    }
 
-    // idle sway + mouse-reactive rotation (lerped, no jitter)
-    const sway = Math.sin(t * 0.5) * 0.04;
-    const targetY = pointer.current.x * 0.5 + sway;
-    const targetX = pointer.current.y * -0.2;
-    g.rotation.y += (targetY - g.rotation.y) * 0.05;
-    g.rotation.x += (targetX - g.rotation.x) * 0.05;
+    // bloom leaves: scale in with a slight overshoot, staggered after branches
+    for (let i = 0; i < leaves.length; i++) {
+      const mesh = leafRefs.current[i];
+      if (!mesh) continue;
+      const leaf = leaves[i];
+      const p = Math.min(1, Math.max(0, (elapsed - leaf.growStart) / 0.45));
+      mesh.scale.setScalar(leaf.scale * (p <= 0 ? 0 : easeOutBack(p)));
+    }
+
+    // idle sway + mouse-reactive rotation (lerped — no jitter)
+    const g = groupRef.current;
+    if (g) {
+      const sway = Math.sin(t * 0.5) * 0.035;
+      const targetY = pointer.current.x * 0.4 + sway;
+      const targetX = pointer.current.y * -0.16;
+      g.rotation.y += (targetY - g.rotation.y) * 0.05;
+      g.rotation.x += (targetX - g.rotation.x) * 0.05;
+    }
   });
 
   useEffect(
     () => () => {
-      tubeGeometries.forEach((geo) => geo.dispose());
+      tubeGeometries.forEach((g) => g.dispose());
       leafGeometry.dispose();
       branchMaterial.dispose();
       leafMaterial.dispose();
@@ -163,18 +223,21 @@ function Plant({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: nu
   );
 
   return (
-    <group ref={groupRef} scale={0}>
+    <group ref={groupRef} scale={0.7} position={[0, -0.1, 0]}>
       {tubeGeometries.map((geo, i) => (
         <mesh key={i} geometry={geo} material={branchMaterial} />
       ))}
       {leaves.map((leaf, i) => (
         <mesh
           key={`leaf-${i}`}
+          ref={(el) => {
+            leafRefs.current[i] = el;
+          }}
           geometry={leafGeometry}
           material={leafMaterial}
           position={leaf.position}
           rotation={leaf.rotation}
-          scale={leaf.scale}
+          scale={0}
         />
       ))}
     </group>
@@ -183,7 +246,7 @@ function Plant({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: nu
 
 /* ---------------------------------------------------------------------------
  * Public component — the WebGL canvas. Lazy-loaded by Hero.tsx (ssr:false),
- * so it never touches the initial bundle / first paint.
+ * so Three.js never touches the initial bundle / first paint.
  * ------------------------------------------------------------------------- */
 export default function Hero3DPlant() {
   const pointer = useRef({ x: 0, y: 0 });
@@ -199,7 +262,7 @@ export default function Hero3DPlant() {
 
   return (
     <Canvas
-      camera={{ position: [0, 0.4, 5], fov: 38 }}
+      camera={{ position: [0, 0.6, 6.5], fov: 36 }}
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       dpr={[1, 1.5]}
       style={{ background: 'transparent' }}
