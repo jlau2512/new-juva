@@ -1,5 +1,6 @@
 import { type Locale, getDict } from '@/lib/i18n';
 import { SITE } from '@/lib/config';
+import WorkIntro from '@/components/work/Intro';
 import Work from '@/components/sections/Work';
 import CTA from '@/components/sections/CTA';
 import type { Metadata } from 'next';
@@ -18,7 +19,8 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
 export default function WorkPage({ params }: { params: { locale: Locale } }) {
   const dict = getDict(params.locale);
   return (
-    <div className="pt-10 md:pt-16">
+    <div>
+      <WorkIntro copy={dict.work.intro} />
       <Work locale={params.locale} dict={dict} />
       <CTA locale={params.locale} dict={dict} />
     </div>

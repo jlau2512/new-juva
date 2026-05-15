@@ -144,6 +144,12 @@ const en = {
     titleStrong: 'projects.',
     sub: 'A small slice of what we have shipped lately. Each one is a real production site or app.',
     cta: 'Browse all work',
+    intro: {
+      eyebrow: 'Case studies',
+      headlineLead: 'Proof, not',
+      headlineAccent: 'promises.',
+      sub: 'Every link below is a live site or app — built by us, used by real people, earning its keep every day.',
+    },
     items: [
       { tag: 'Construction', title: 'ENC Construction', desc: 'Marketing site for a Mauritian construction firm — residential and commercial builds.', url: 'https://enc-construction-co-ltd-cf383c.webflow.io/', image: '/work/enc-construction.jpg' },
       { tag: 'Concierge', title: 'Luxoria', desc: 'Luxury concierge service site with bespoke booking inquiries for a high-end clientele.', url: 'https://luxoriaconciergerie.com/', image: '/work/luxoria.jpg' },

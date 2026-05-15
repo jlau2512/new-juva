@@ -144,6 +144,12 @@ const fr = {
     titleStrong: 'récents.',
     sub: 'Un échantillon de ce que nous avons livré récemment. Tous sont des sites ou apps en production.',
     cta: 'Voir tous les projets',
+    intro: {
+      eyebrow: 'Études de cas',
+      headlineLead: 'La preuve, pas des',
+      headlineAccent: 'promesses.',
+      sub: 'Chaque lien ci-dessous est un site ou une app en ligne — conçu par nous, utilisé par de vrais gens, au quotidien.',
+    },
     items: [
       { tag: 'Construction', title: 'ENC Construction', desc: 'Site marketing pour une entreprise de construction mauricienne — résidentiel et commercial.', url: 'https://enc-construction-co-ltd-cf383c.webflow.io/', image: '/work/enc-construction.jpg' },
       { tag: 'Conciergerie', title: 'Luxoria', desc: 'Site de conciergerie de luxe avec demandes de réservation sur mesure pour une clientèle haut de gamme.', url: 'https://luxoriaconciergerie.com/', image: '/work/luxoria.jpg' },
