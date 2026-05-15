@@ -73,6 +73,14 @@ const en = {
       { title: 'You own everything', body: 'Code, designs, domains, accounts — all yours from day one, handed over clean and documented.' },
       { title: 'Senior hands-on', body: 'The people you meet are the people who build. No juniors, no hand-offs, no telephone game.' },
     ],
+    promise: {
+      eyebrow: 'Our promise',
+      headlineA: 'Average is',
+      headlineAccentA: 'invisible.',
+      headlineB: 'Be',
+      headlineAccentB: 'impossible to ignore.',
+      sub: 'Every line of code, every pixel, every word — built to make your business the obvious choice.',
+    },
   },
   process: {
     label: 'How we work',

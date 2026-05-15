@@ -73,6 +73,14 @@ const fr = {
       { title: 'Tout vous appartient', body: 'Code, designs, domaines, comptes — tout est à vous dès le jour 1, livré propre et documenté.' },
       { title: 'Des seniors aux manettes', body: 'Les personnes que vous rencontrez sont celles qui construisent. Pas de juniors, pas de relais, pas de téléphone arabe.' },
     ],
+    promise: {
+      eyebrow: 'Notre promesse',
+      headlineA: 'L’ordinaire',
+      headlineAccentA: 'passe inaperçu.',
+      headlineB: 'Soyez',
+      headlineAccentB: 'impossible à ignorer.',
+      sub: 'Chaque ligne de code, chaque pixel, chaque mot — pensés pour faire de votre marque le choix évident.',
+    },
   },
   process: {
     label: 'Comment nous travaillons',

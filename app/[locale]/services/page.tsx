@@ -5,6 +5,7 @@ import Reveal from '@/components/Reveal';
 import CoreServices from '@/components/services/CoreServices';
 import Addons from '@/components/services/Addons';
 import WhyJuva from '@/components/services/WhyJuva';
+import Promise from '@/components/services/Promise';
 import type { Metadata } from 'next';
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
@@ -55,7 +56,10 @@ export default function ServicesPage({ params }: { params: { locale: Locale } })
       {/* 4. Why JUVA */}
       <WhyJuva label={s.whyLabel} title={s.whyTitle} items={s.why} />
 
-      {/* 5. CTA */}
+      {/* 5. Spotlight promise — emotional clincher before CTA */}
+      <Promise copy={s.promise} />
+
+      {/* 6. CTA */}
       <CTA locale={params.locale} dict={dict} />
     </div>
   );
