@@ -8,7 +8,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import ExitIntent from '@/components/ExitIntent';
 import Noise from '@/components/Noise';
-import ButterflyCursor from '@/components/ButterflyCursor';
+import Butterfly from '@/components/Butterfly';
 import Script from 'next/script';
 
 export function generateStaticParams() {
@@ -59,7 +59,7 @@ export default function LocaleLayout({
       <Footer locale={locale as Locale} dict={dict} />
       <WhatsAppButton dict={dict} />
       <ExitIntent dict={dict} />
-      <ButterflyCursor />
+      <Butterfly />
     </>
   );
 }
