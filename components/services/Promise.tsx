@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import Reveal from '@/components/Reveal';
 
 type PromiseCopy = {
@@ -17,13 +17,13 @@ export default function Promise({ copy }: { copy: PromiseCopy }) {
   const stageRef = useRef<HTMLDivElement>(null);
 
   // Pointer state held in motion values (no React re-renders).
+  // Raw values — no spring smoothing — so the spotlight tracks the cursor
+  // with zero perceptible lag the moment you hover.
   const x = useMotionValue(-9999);
   const y = useMotionValue(-9999);
-  const sx = useSpring(x, { stiffness: 200, damping: 30, mass: 0.6 });
-  const sy = useSpring(y, { stiffness: 200, damping: 30, mass: 0.6 });
 
   // The reveal mask for the bright text copy.
-  const mask = useMotionTemplate`radial-gradient(220px circle at ${sx}px ${sy}px, black 30%, transparent 70%)`;
+  const mask = useMotionTemplate`radial-gradient(220px circle at ${x}px ${y}px, black 30%, transparent 70%)`;
 
   // Detect touch / no-hover / reduced-motion → static bright copy, no spotlight.
   const [staticMode, setStaticMode] = useState(false);
@@ -81,8 +81,8 @@ export default function Promise({ copy }: { copy: PromiseCopy }) {
               aria-hidden
               className="pointer-events-none absolute h-[360px] w-[360px] rounded-full bg-accent/[0.06] blur-[80px]"
               style={{
-                left: sx,
-                top: sy,
+                left: x,
+                top: y,
                 x: '-50%',
                 y: '-50%',
               }}
