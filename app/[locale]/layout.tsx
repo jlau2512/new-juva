@@ -9,7 +9,6 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import ExitIntent from '@/components/ExitIntent';
 import Noise from '@/components/Noise';
 import Butterfly from '@/components/Butterfly';
-import Script from 'next/script';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -48,9 +47,10 @@ export default function LocaleLayout({
 
   return (
     <>
-      <Script id="ld-json" type="application/ld+json" strategy="afterInteractive">
-        {JSON.stringify(jsonLd)}
-      </Script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Noise />
       <SmoothScroll />
       <ScrollProgress />

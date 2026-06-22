@@ -1,5 +1,4 @@
 import { type Locale, getDict } from '@/lib/i18n';
-import { SITE } from '@/lib/config';
 import CTA from '@/components/sections/CTA';
 import Reveal from '@/components/Reveal';
 import CoreServices from '@/components/services/CoreServices';
@@ -7,6 +6,7 @@ import Addons from '@/components/services/Addons';
 import WhyJuva from '@/components/services/WhyJuva';
 import Promise from '@/components/services/Promise';
 import type { Metadata } from 'next';
+import { alternates } from '@/lib/seo';
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
   const isFr = params.locale === 'fr';
@@ -17,7 +17,7 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
     description: isFr
       ? 'Sites web qui convertissent, applications sur mesure et identité de marque — plus des options SEO, performance et maintenance. Devis à prix fixe sous 48h.'
       : 'Websites that convert, custom applications and brand identity — plus SEO, performance and care-plan add-ons. Fixed-fee quote within 48 hours.',
-    alternates: { canonical: `${SITE.url}/${params.locale}/services` },
+    alternates: alternates('/services', params.locale),
   };
 }
 

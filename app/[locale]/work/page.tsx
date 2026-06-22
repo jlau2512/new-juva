@@ -1,9 +1,9 @@
 import { type Locale, getDict } from '@/lib/i18n';
-import { SITE } from '@/lib/config';
 import WorkIntro from '@/components/work/Intro';
 import Work from '@/components/sections/Work';
 import CTA from '@/components/sections/CTA';
 import type { Metadata } from 'next';
+import { alternates } from '@/lib/seo';
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
   const isFr = params.locale === 'fr';
@@ -12,7 +12,7 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
     description: isFr
       ? 'Une sélection de sites et d’apps livrés récemment.'
       : 'A selection of websites and apps we shipped recently.',
-    alternates: { canonical: `${SITE.url}/${params.locale}/work` },
+    alternates: alternates('/work', params.locale),
   };
 }
 

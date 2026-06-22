@@ -3,6 +3,7 @@ import { SITE } from '@/lib/config';
 import QuoteWizard from '@/components/QuoteWizard';
 import Reveal from '@/components/Reveal';
 import type { Metadata } from 'next';
+import { alternates } from '@/lib/seo';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
@@ -12,7 +13,7 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
     description: isFr
       ? "Parlons de votre projet. Un devis fixe en 48h."
       : "Let's talk about your project. A fixed quote within 48 hours.",
-    alternates: { canonical: `${SITE.url}/${params.locale}/contact` },
+    alternates: alternates('/contact', params.locale),
   };
 }
 

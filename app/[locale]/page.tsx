@@ -10,6 +10,7 @@ import CTA from '@/components/sections/CTA';
 import FallingLeaves from '@/components/FallingLeaves';
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/config';
+import { alternates } from '@/lib/seo';
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
   const isFr = params.locale === 'fr';
@@ -22,10 +23,7 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
   return {
     title,
     description: desc,
-    alternates: {
-      canonical: `${SITE.url}/${params.locale}`,
-      languages: { en: `${SITE.url}/en`, fr: `${SITE.url}/fr` },
-    },
+    alternates: alternates('', params.locale),
     openGraph: { title, description: desc, locale: params.locale === 'fr' ? 'fr_FR' : 'en_US' },
   };
 }

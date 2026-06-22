@@ -3,7 +3,7 @@ import { SITE } from '@/lib/config';
 import { locales } from '@/lib/i18n';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ['', '/work', '/services', '/contact'];
+  const paths = ['', '/work', '/services', '/process', '/contact'];
   const out: MetadataRoute.Sitemap = [];
   for (const l of locales) {
     for (const p of paths) {
@@ -13,7 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'monthly',
         priority: p === '' ? 1 : 0.7,
         alternates: {
-          languages: Object.fromEntries(locales.map((x) => [x, `${SITE.url}/${x}${p}`])),
+          languages: {
+            ...Object.fromEntries(locales.map((x) => [x, `${SITE.url}/${x}${p}`])),
+            'x-default': `${SITE.url}/en${p}`,
+          },
         },
       });
     }

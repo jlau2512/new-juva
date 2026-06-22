@@ -1,10 +1,10 @@
 import { type Locale, getDict } from '@/lib/i18n';
-import { SITE } from '@/lib/config';
 import CTA from '@/components/sections/CTA';
 import Reveal from '@/components/Reveal';
 import Timeline from '@/components/process/Timeline';
 import Principles from '@/components/process/Principles';
 import type { Metadata } from 'next';
+import { alternates } from '@/lib/seo';
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
   const isFr = params.locale === 'fr';
@@ -15,7 +15,7 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
     description: isFr
       ? 'Notre méthode en quatre phases : découverte, design, développement et lancement. Périmètre fixe, prix fixe, transparence totale et 30 jours de support après la mise en ligne.'
       : 'Our four-phase process: discover, design, build and launch. Fixed scope, fixed fee, full transparency and 30 days of support after you go live.',
-    alternates: { canonical: `${SITE.url}/${params.locale}/process` },
+    alternates: alternates('/process', params.locale),
   };
 }
 
