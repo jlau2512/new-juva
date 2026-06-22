@@ -26,9 +26,9 @@
  *      (or paste it into lib/config.ts)
  */
 
-const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';     // ← Replace
-const NOTIFY_EMAIL = 'hello@juva.design';           // ← Your inbox
-const SHEET_NAME = 'Leads';
+const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';  // ← Step 1: paste your Sheet ID here
+const NOTIFY_EMAIL = 'hello@juva.design';       // ← Leads will be emailed here
+const SHEET_NAME = 'Leads';                     // Tab name inside the spreadsheet
 
 const SERVICE_LABEL = {
   website: 'Website',

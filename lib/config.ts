@@ -12,9 +12,7 @@ export const SITE = {
   city: 'Rose-Belle',
   country: 'Mauritius',
   founded: '2022',
-  // Replace with your deployed Google Apps Script Web App URL after running setup.
-  // See GOOGLE_APPS_SCRIPT.js + SETUP.md for the 15-minute walkthrough.
-  formEndpoint:
-    process.env.NEXT_PUBLIC_FORM_ENDPOINT ||
-    'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE',
+  // Form submissions go to /api/contact (Next.js route → Gmail via nodemailer).
+  // GMAIL_USER and GMAIL_APP_PASSWORD must be set as Vercel env vars.
+  formEndpoint: '/api/contact',
 } as const;
