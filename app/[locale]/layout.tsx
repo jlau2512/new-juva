@@ -35,8 +35,12 @@ export default function LocaleLayout({
     url: SITE.url,
     logo: `${SITE.url}/favicon.svg`,
     image: `${SITE.url}/opengraph-image`,
-    // sameAs: ['https://www.instagram.com/...', 'https://www.linkedin.com/company/...'],
-    // ^ TODO: add JUVA's real social/profile URLs to claim the brand and outrank other "Juva" businesses.
+    sameAs: [
+      'https://www.instagram.com/juvadesign.studio/',
+      'https://www.linkedin.com/in/juvadesign',
+      'https://www.facebook.com/profile.php?id=61589201683831',
+      'https://www.tiktok.com/@juva.design',
+    ],
     telephone: SITE.phone,
     email: SITE.email,
     address: {
