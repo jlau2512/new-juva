@@ -26,6 +26,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
             <ul className="mt-5 space-y-2.5 font-label text-sm text-ink-muted">
               <li><a className="transition-colors hover:text-accent" href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
               <li><a className="transition-colors hover:text-accent" href={`tel:${SITE.phone.replace(/\s/g, '')}`}>{SITE.phone}</a></li>
+              <li><a className="transition-colors hover:text-accent" href={`tel:${SITE.phone2.replace(/\s/g, '')}`}>{SITE.phone2}</a></li>
               <li className="text-ink-subtle">{SITE.city}, {SITE.country}</li>
             </ul>
           </div>

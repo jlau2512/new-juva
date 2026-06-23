@@ -41,7 +41,7 @@ export default function LocaleLayout({
       'https://www.facebook.com/profile.php?id=61589201683831',
       'https://www.tiktok.com/@juva.design',
     ],
-    telephone: SITE.phone,
+    telephone: [SITE.phone, SITE.phone2],
     email: SITE.email,
     address: {
       '@type': 'PostalAddress',

@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
             <div style="font-size:14px;line-height:1.7;color:#e8e5dc">${data.details}</div>
           </div>` : ''}
           <div style="margin-top:28px;padding-top:16px;border-top:1px solid #1e1e1c;font-size:12px;color:#555">
-            juva.design · hello@juva.design · +230 5968 6136
+            juva.design · hello@juva.design · +230 5793 6857 · +230 5968 6136
           </div>
         </div>
       `,

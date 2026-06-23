@@ -30,6 +30,7 @@ export default function Contact({ params }: { params: { locale: Locale } }) {
           <div className="mt-12 space-y-5">
             <Item icon={<Mail size={18} className="text-accent" />} label={SITE.email} href={`mailto:${SITE.email}`} />
             <Item icon={<Phone size={18} className="text-accent" />} label={SITE.phone} href={`tel:${SITE.phone.replace(/\s/g, '')}`} />
+            <Item icon={<Phone size={18} className="text-accent" />} label={SITE.phone2} href={`tel:${SITE.phone2.replace(/\s/g, '')}`} />
             <Item icon={<MapPin size={18} className="text-accent" />} label={`${SITE.city}, ${SITE.country}`} />
             <Item
               icon={<Clock size={18} className="text-accent" />}
