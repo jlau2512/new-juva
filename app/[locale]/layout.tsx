@@ -28,9 +28,15 @@ export default function LocaleLayout({
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'JUVA Digital Studio',
+    alternateName: 'JUVA',
+    slogan: 'Premium web design & custom apps in Mauritius',
     description:
       'Premium web design and custom application development for ambitious teams in Mauritius and beyond.',
     url: SITE.url,
+    logo: `${SITE.url}/favicon.svg`,
+    image: `${SITE.url}/opengraph-image`,
+    // sameAs: ['https://www.instagram.com/...', 'https://www.linkedin.com/company/...'],
+    // ^ TODO: add JUVA's real social/profile URLs to claim the brand and outrank other "Juva" businesses.
     telephone: SITE.phone,
     email: SITE.email,
     address: {

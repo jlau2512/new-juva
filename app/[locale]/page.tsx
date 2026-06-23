@@ -18,8 +18,8 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
     ? `${SITE.name} — Studio digital premium à Maurice`
     : `${SITE.name} — Premium Digital Studio in Mauritius`;
   const desc = isFr
-    ? 'Sites web, apps sur mesure et identité de marque pour des équipes ambitieuses à Maurice et au-delà.'
-    : 'Websites, custom apps, and brand identity for ambitious teams in Mauritius and beyond.';
+    ? 'Création de sites web à Maurice, apps sur mesure et identité de marque pour des équipes ambitieuses.'
+    : 'Web design in Mauritius: websites, custom apps, and brand identity for ambitious teams.';
   return {
     title,
     description: desc,

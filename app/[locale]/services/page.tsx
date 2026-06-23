@@ -12,11 +12,11 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
   const isFr = params.locale === 'fr';
   return {
     title: isFr
-      ? 'Services — sites, apps, identité & options'
-      : 'Services — websites, apps, identity & add-ons',
+      ? 'Services — création de sites web à Maurice, apps & identité'
+      : 'Services — web design in Mauritius, apps & brand identity',
     description: isFr
-      ? 'Sites web qui convertissent, applications sur mesure et identité de marque — plus des options SEO, performance et maintenance. Devis à prix fixe sous 48h.'
-      : 'Websites that convert, custom applications and brand identity — plus SEO, performance and care-plan add-ons. Fixed-fee quote within 48 hours.',
+      ? 'Création de sites web à Maurice qui convertissent, applications sur mesure et identité de marque — plus des options SEO, performance et maintenance. Devis à prix fixe sous 48h.'
+      : 'Web design in Mauritius that converts: websites, custom applications and brand identity — plus SEO, performance and care-plan add-ons. Fixed-fee quote within 48 hours.',
     alternates: alternates('/services', params.locale),
   };
 }
